@@ -1,8 +1,10 @@
 package me.iseal.powergems.gems;
 
 import me.iseal.powergems.Main;
+import me.iseal.powergems.gems.powerClasses.tasks.fireballPowerDecay;
 import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.CooldownManager;
+import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.misc.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -34,8 +36,9 @@ public class fireGem {
     private final long rightCooldown = CooldownManager.FIRE_RIGHT.getCooldown();
     private final long leftCooldown = CooldownManager.FIRE_LEFT.getCooldown();
     private final long shiftCooldown = CooldownManager.FIRE_SHIFT.getCooldown();
-    private Utils u = Main.getSingletonManager().utils;
-    private final ConfigManager cm = Main.getSingletonManager().configManager;
+    private final SingletonManager sm = Main.getSingletonManager();
+    private final Utils u = sm.utils;
+    private final ConfigManager cm = sm.configManager;
     private int level;
 
     public boolean handlePower(Player p, Action a, int lvl){
@@ -91,6 +94,10 @@ public class fireGem {
 
 
     private void onLeftClick(Player plr) {
+        if (sm.tempDataManager.chargingFireball.containsKey(plr)){
+            sm.tempDataManager.chargingFireball.get(plr).currentPower+=10;
+            return;
+        }
         UUID plrID = plr.getUniqueId();
         //cooldown check
         if (leftCooldowns.containsKey(plrID)){
@@ -110,14 +117,12 @@ public class fireGem {
             }
         }
         //power
-        Vector direction = plr.getEyeLocation().getDirection();
-        Fireball fireball = plr.launchProjectile(Fireball.class);
-        fireball.setVelocity(direction.multiply(2));
-        fireball.setYield(2+level);
-        fireball.setVisualFire(false);
-        fireball.setIsIncendiary(Main.config.getBoolean("explosionDamageAllowed"));
-        fireball.getPersistentDataContainer().set(Main.getIsGemExplosionKey(), PersistentDataType.BOOLEAN, true);
-        fireball.getPersistentDataContainer().set(Main.getIsGemProjectileKey(), PersistentDataType.BOOLEAN, true);
+        fireballPowerDecay fpd = new fireballPowerDecay();
+        fpd.plr = plr;
+        fpd.currentPower = 10;
+        fpd.level = level;
+        fpd.runTaskTimer(Main.getPlugin(), 2, 2);
+        sm.tempDataManager.chargingFireball.put(plr, fpd);
         //cooldown add
         leftCooldowns.put(plrID, System.currentTimeMillis()+(leftCooldown*1000-(level*cm.getGemCooldownBoost())));
     }
@@ -157,4 +162,9 @@ public class fireGem {
         //cooldown add
         shiftCooldowns.put(plrID, System.currentTimeMillis()+(shiftCooldown*1000-(level*cm.getGemCooldownBoost())));
     }
+
+    public void addLeftCooldown(Player p, int level){
+        leftCooldowns.put(p.getUniqueId(), System.currentTimeMillis()+(leftCooldown*1000-(level*cm.getGemCooldownBoost())));
+    }
+
 }

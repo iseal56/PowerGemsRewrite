@@ -22,7 +22,7 @@ public class ConfigManager {
     }
 
     public long getGemCooldownBoost(){
-        return config.getLong("cooldownBoostPerLevelInSeconds");
+        return config.getLong("cooldownBoostPerLevelInSeconds")*1000;
     }
 
 }

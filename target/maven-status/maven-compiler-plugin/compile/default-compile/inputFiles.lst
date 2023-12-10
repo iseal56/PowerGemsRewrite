@@ -3,7 +3,10 @@ C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\ge
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\managers\UpdaterManager.java
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\listeners\powerListeners\iceTargetListener.java
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\commands\checkUpdateCommand.java
+C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\gems\powerClasses\tasks\fireballPowerDecay.java
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\listeners\useEvent.java
+C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\managers\TempDataManager.java
+C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\managers\SingletonManager.java
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\managers\PlayerManager.java
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\gems\iceGem.java
 C:\Users\emanu\IdeaProjects\PowerGemsRewrite\src\main\java\me\iseal\powergems\managers\ConfigManager.java

@@ -19,7 +19,7 @@ public final class Main extends JavaPlugin {
     public static Yaml cd = null;
     public static Yaml gemActive = null;
     public static Yaml config = null;
-    private static final SingletonManager sm = new SingletonManager();
+    private static SingletonManager sm = null;
     private static NamespacedKey isGemKey = null;
     private static NamespacedKey gemPowerKey = null;
     private static NamespacedKey gemLevelKey = null;
@@ -31,6 +31,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        sm = new SingletonManager();
         sm.updaterManager.start();
         sm.configManager.setUpConfig();
         cd = new Yaml("cooldowns", this.getDataFolder()+"\\config\\");

@@ -20,5 +20,6 @@ public class SingletonManager {
     public final sandMoveListener sandMoveListen = new sandMoveListener();
     public final iceTargetListener iceTargetListen = new iceTargetListener();
     public final me.iseal.powergems.listeners.fallingBlockHitListener fallingBlockHitListen = new fallingBlockHitListener();
+    public final TempDataManager tempDataManager = new TempDataManager();
 
 }

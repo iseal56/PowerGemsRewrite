@@ -25,14 +25,17 @@ me\iseal\powergems\gems\airGem.class
 me\iseal\powergems\listeners\fallingBlockHitListener.class
 me\iseal\powergems\listeners\powerListeners\strenghtMoveListener.class
 me\iseal\powergems\commands\checkUpdateCommand.class
+me\iseal\powergems\gems\powerClasses\tasks\fireballPowerDecay.class
 me\iseal\powergems\gems\lavaGem.class
 me\iseal\powergems\listeners\dropEvent.class
 me\iseal\powergems\gems\lavaGem$2.class
 me\iseal\powergems\gems\healingGem.class
 me\iseal\powergems\gems\fireGem.class
 me\iseal\powergems\listeners\noGemHittingListener.class
+me\iseal\powergems\managers\SingletonManager.class
 me\iseal\powergems\managers\RecipeManager.class
 me\iseal\powergems\misc\Utils.class
 me\iseal\powergems\commands\giveGemCommand.class
 me\iseal\powergems\gems\powerClasses\StrenghArena$1.class
 me\iseal\powergems\listeners\powerListeners\ironProjectileLandListener.class
+me\iseal\powergems\managers\TempDataManager.class

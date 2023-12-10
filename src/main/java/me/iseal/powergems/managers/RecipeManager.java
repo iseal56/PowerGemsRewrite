@@ -22,9 +22,10 @@ import java.util.stream.Collectors;
 
 public class RecipeManager implements Listener {
 
-    private final GemManager gemManager = Main.getSingletonManager().gemManager;
+    private GemManager gemManager = null;
     
     public void initiateRecipes(){
+        gemManager = Main.getSingletonManager().gemManager;
         if (Main.config.getBoolean("canUpgradeGems")) {
             upgradeRecipe();
         }
@@ -103,7 +104,6 @@ public class RecipeManager implements Listener {
                 newStack.setItemMeta(im);
                 //generate namespacedkey based on name+level
                 String key = generateName(im.getDisplayName())+"_"+level+"_upgrade";
-                System.out.println("name generated = "+key);
                 NamespacedKey nk = new NamespacedKey(Main.getPlugin(), key);
                 ShapedRecipe sr = new ShapedRecipe(nk,newStack);
                 sr.shape("nen","ege","nen");
