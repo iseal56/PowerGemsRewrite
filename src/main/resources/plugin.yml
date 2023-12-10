@@ -1,0 +1,27 @@
+name: PowerGems
+version: '${project.version}'
+main: me.iseal.powergems.Main
+api-version: 1.19
+load: STARTUP
+author: ISeal
+commands:
+  givegem:
+    description: Gives a gem to the player that ran the command.
+    permission: powergems.givegem
+    usage: /givegem <number>
+  giveallgem:
+    description: Gives a gem to all of the players in the server.
+    permission: powergems.givegem.all
+  checkupdates:
+    description: Checks for updates
+    permission: powergems.check_update
+permissions:
+  powergems.givegem:
+    default: op
+    description: Permission for the /givegem command.
+  powergems.givegem.all:
+    default: op
+    description: Permission for the /giveallgem command.
+  powergems.check_update:
+    default: op
+    description: Permission to check for an update and receive update messages

@@ -1,0 +1,137 @@
+package me.iseal.powergems.managers;
+
+import me.iseal.powergems.Main;
+import me.iseal.powergems.misc.Utils;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+public class RecipeManager implements Listener {
+
+    private final GemManager gemManager = Main.getSingletonManager().gemManager;
+    
+    public void initiateRecipes(){
+        if (Main.config.getBoolean("canUpgradeGems")) {
+            upgradeRecipe();
+        }
+        if (Main.config.getBoolean("canCraftGems")){
+            craftRecipe();
+        }
+    }
+
+    @EventHandler
+    public void onCraft(PrepareItemCraftEvent event){
+        if (!event.getInventory().contains(Material.TOTEM_OF_UNDYING)){
+            return;
+        }
+        if (event.getView().getType() == InventoryType.WORKBENCH) {
+            if (event.getInventory().getResult() != null && event.getInventory().getResult().getType() == Material.POTION){
+                event.getInventory().setResult(gemManager.getRandomGemItem());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onItemPickup(InventoryClickEvent e){
+        if (e.getInventory().getType() != InventoryType.WORKBENCH){
+            return;
+        }
+        if (!e.getInventory().contains(Material.TOTEM_OF_UNDYING)){
+            return;
+        }
+        if (!e.getInventory().getItem(0).hasItemMeta()){
+            return;
+        }
+        if (!e.getInventory().getItem(0).getItemMeta().getPersistentDataContainer().has(Main.getIsRandomGemKey(), PersistentDataType.BOOLEAN)){
+            return;
+        }
+        if (!e.getCurrentItem().isSimilar(gemManager.getRandomGemItem())){
+            return;
+        }
+        if (Main.config.getBoolean("allowOnlyOneGem")) {
+            for (ItemStack is : e.getWhoClicked().getInventory().getContents()) {
+                if (is == null){
+                    continue;
+                }
+                if (!is.getType().equals(Material.EMERALD)) {
+                    continue;
+                }
+                if (is.getItemMeta().getPersistentDataContainer().has(Main.getIsGemKey(), PersistentDataType.BOOLEAN)) {
+                    e.getWhoClicked().getInventory().remove(is);
+                }
+            }
+        }
+        e.setCurrentItem(gemManager.createGem());
+    }
+
+    private void craftRecipe(){
+            String key = "gem_craft_recipe";
+            NamespacedKey nk = new NamespacedKey(Main.getPlugin(), key);
+            ShapedRecipe sr = new ShapedRecipe(nk,new ItemStack(Material.POTION));
+            sr.shape("nen","ege","nen");
+            sr.setIngredient('n', Material.NETHERITE_INGOT);
+            sr.setIngredient('e', Material.EXPERIENCE_BOTTLE);
+            sr.setIngredient('g', Material.TOTEM_OF_UNDYING);
+            Bukkit.getServer().addRecipe(sr);
+    }
+
+    private void upgradeRecipe(){
+        ItemStack oldStack;
+        ItemStack newStack;
+        for (ItemStack i : gemManager.getAllGems().values()){
+            oldStack = i;
+            for (int level = 2; level <= 5; level++) {
+                newStack = oldStack.clone();
+                ItemMeta im = newStack.getItemMeta();
+                PersistentDataContainer pdc = im.getPersistentDataContainer();
+                pdc.set(Main.getGemLevelKey(), PersistentDataType.INTEGER, level);
+                im = gemManager.createLore(im);
+                newStack.setItemMeta(im);
+                //generate namespacedkey based on name+level
+                String key = generateName(im.getDisplayName())+"_"+level+"_upgrade";
+                System.out.println("name generated = "+key);
+                NamespacedKey nk = new NamespacedKey(Main.getPlugin(), key);
+                ShapedRecipe sr = new ShapedRecipe(nk,newStack);
+                sr.shape("nen","ege","nen");
+                sr.setIngredient('n', Material.NETHERITE_INGOT);
+                sr.setIngredient('e', Material.EXPERIENCE_BOTTLE);
+                sr.setIngredient('g', new RecipeChoice.ExactChoice(oldStack));
+                Bukkit.getServer().addRecipe(sr);
+                oldStack = newStack;
+            }
+        }
+    }
+    private static String generateName(String s){
+        s = s.replace(" ", "_");
+        String finalString = "";
+        boolean lastWas = false;
+        ArrayList<Character> characterList = (ArrayList<Character>) s.chars().mapToObj(c -> (char)c).collect(Collectors.toList());
+
+        for (int i = 0; i < characterList.size(); i++) {
+            if (characterList.get(i).toString().equals("§")){
+                lastWas = true;
+                continue;
+            }
+            if (lastWas){
+                lastWas = false;
+                continue;
+            }
+            finalString = finalString+characterList.get(i);
+        }
+        return finalString.toLowerCase();
+    }
+}
