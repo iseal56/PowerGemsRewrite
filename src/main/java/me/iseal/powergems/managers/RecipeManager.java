@@ -51,13 +51,17 @@ public class RecipeManager implements Listener {
         if (e.getInventory().getType() != InventoryType.WORKBENCH){
             return;
         }
-        if (!e.getInventory().contains(Material.TOTEM_OF_UNDYING)){
+        if (!e.getInventory().contains(Material.NETHERITE_BLOCK)){
             return;
         }
-        if (!e.getInventory().getItem(0).hasItemMeta()){
+        ItemStack i = e.getInventory().getItem(0);
+        if (i == null){
             return;
         }
-        if (!e.getInventory().getItem(0).getItemMeta().getPersistentDataContainer().has(Main.getIsRandomGemKey(), PersistentDataType.BOOLEAN)){
+        if (!i.hasItemMeta()){
+            return;
+        }
+        if (!i.getItemMeta().getPersistentDataContainer().has(Main.getIsRandomGemKey(), PersistentDataType.BYTE)){
             return;
         }
         if (!e.getCurrentItem().isSimilar(gemManager.getRandomGemItem())){
@@ -71,7 +75,7 @@ public class RecipeManager implements Listener {
                 if (!is.getType().equals(Material.EMERALD)) {
                     continue;
                 }
-                if (is.getItemMeta().getPersistentDataContainer().has(Main.getIsGemKey(), PersistentDataType.BOOLEAN)) {
+                if (is.getItemMeta().getPersistentDataContainer().has(Main.getIsGemKey(), PersistentDataType.BYTE)) {
                     e.getWhoClicked().getInventory().remove(is);
                 }
             }
@@ -82,11 +86,11 @@ public class RecipeManager implements Listener {
     private void craftRecipe(){
             String key = "gem_craft_recipe";
             NamespacedKey nk = new NamespacedKey(Main.getPlugin(), key);
-            ShapedRecipe sr = new ShapedRecipe(nk,new ItemStack(Material.POTION));
-            sr.shape("nen","ege","nen");
-            sr.setIngredient('n', Material.NETHERITE_INGOT);
-            sr.setIngredient('e', Material.EXPERIENCE_BOTTLE);
-            sr.setIngredient('g', Material.TOTEM_OF_UNDYING);
+            ShapedRecipe sr = new ShapedRecipe(nk,Main.getSingletonManager().gemManager.getRandomGemItem());
+            sr.shape("ndn","dgd","ndn");
+            sr.setIngredient('n', Material.NETHERITE_BLOCK);
+            sr.setIngredient('d', Material.DIAMOND_BLOCK);
+            sr.setIngredient('g', Material.NETHER_STAR);
             Bukkit.getServer().addRecipe(sr);
     }
 
@@ -100,7 +104,7 @@ public class RecipeManager implements Listener {
                 ItemMeta im = newStack.getItemMeta();
                 PersistentDataContainer pdc = im.getPersistentDataContainer();
                 pdc.set(Main.getGemLevelKey(), PersistentDataType.INTEGER, level);
-                im = gemManager.createLore(im);
+                im = gemManager.createLore(im, level);
                 newStack.setItemMeta(im);
                 //generate namespacedkey based on name+level
                 String key = generateName(im.getDisplayName())+"_"+level+"_upgrade";

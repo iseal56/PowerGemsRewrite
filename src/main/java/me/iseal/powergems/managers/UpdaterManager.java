@@ -16,12 +16,12 @@ public class UpdaterManager extends Thread{
     UpdateChecker uc = null;
     Logger l = Bukkit.getServer().getLogger();
     private final String checkRequestedByString = "Performing update check requested by ";
-    private final String checkDoneString = "Finished update check requested by ";
+    private final String checkDoneString = "Update check requested by ";
 
 
     public void run(){
         uc = new UpdateChecker(Main.getPlugin(), UpdateCheckSource.SPIGOT, "108943")
-                .setDownloadLink("https://www.spigotmc.org/resources/powergems.108943/")
+                .setDownloadLink("https://www.spigotmc.org/resources/1-19-1-20-4-powergems.108943/")
                 .setNotifyByPermissionOnJoin("powergems.check_update")
                 .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
                 .checkEveryXHours(1) //check every hour
@@ -39,7 +39,7 @@ public class UpdaterManager extends Thread{
         for (CommandSender cmdsnr : commandSenders){
             doneByString = doneByString+cmdsnr.getName()+" ";
         }
-        l.info(checkDoneString+doneByString+"Failed = "+isFail+" Current version = "+uc.getUsedVersion()+" Latest version = "+uc.getLatestVersion());
+        l.info(checkDoneString+doneByString+(isFail ? "Failed" : "Successful"));
         if (isFail){
             l.warning("Update test failed with error "+e.getMessage());
         }

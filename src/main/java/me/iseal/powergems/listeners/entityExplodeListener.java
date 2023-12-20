@@ -1,6 +1,5 @@
 package me.iseal.powergems.listeners;
 
-import kotlin.Metadata;
 import me.iseal.powergems.Main;
 import org.bukkit.entity.Fireball;
 import org.bukkit.event.EventHandler;

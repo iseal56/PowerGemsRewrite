@@ -26,7 +26,7 @@ public class dropEvent implements Listener {
         if (item.hasItemMeta()){
             ItemMeta meta = item.getItemMeta();
             PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
-            if (dataContainer.has(Main.getIsGemKey(), PersistentDataType.BYTE)){
+            if (dataContainer.has(Main.getIsGemKey(), PersistentDataType.BOOLEAN)){
                 e.setCancelled(true);
             }
         }
@@ -41,7 +41,7 @@ public class dropEvent implements Listener {
             if (item.hasItemMeta()){
                 ItemMeta meta = item.getItemMeta();
                 PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
-                if (dataContainer.has(Main.getIsGemKey(), PersistentDataType.BYTE)){
+                if (dataContainer.has(Main.getIsGemKey(), PersistentDataType.BOOLEAN)){
                     toKeep.add(item);
                 }
             }

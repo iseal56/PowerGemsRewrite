@@ -6,7 +6,7 @@
 
     <groupId>me.iseal</groupId>
     <artifactId>PowerGems</artifactId>
-    <version>3.0.0.4</version>
+    <version>3.1.1.2</version>
     <packaging>jar</packaging>
 
     <name>PowerGems</name>
@@ -114,15 +114,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.guardsquare</groupId>
-            <artifactId>proguard-core</artifactId>
-            <version>9.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.simplix-softworks</groupId>
             <artifactId>simplixstorage</artifactId>
-            <version>3.2.6</version>
+            <version>3.2.7</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

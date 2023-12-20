@@ -35,8 +35,8 @@ public class giveGemCommand implements CommandExecutor {
                 return true;
             } else {
                 plr.getInventory().addItem(sm.gemManager.createGem());
+                return true;
             }
-            return false;
         }
     }
 
