@@ -3,6 +3,7 @@ package me.iseal.powergems.listeners;
 import me.iseal.powergems.Main;
 import me.iseal.powergems.gems.*;
 import me.iseal.powergems.managers.TempDataManager;
+import me.iseal.powergems.managers.SingletonManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,7 +20,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class useEvent implements Listener {
 
-    private final SingletonManager sm = Main.getSingletonManager();
+    private SingletonManager sm = Main.getSingletonManager();
     private TempDataManager tdm = sm.tempDataManager;
     private final healingGem heal = new healingGem();
     private final powerGem power = new powerGem();

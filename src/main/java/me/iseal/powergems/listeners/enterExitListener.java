@@ -29,13 +29,13 @@ public class enterExitListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player plr = e.getPlayer();
-        if (tdm.cantUseGems.contains(plr)){
+        if (tdm.cantUseGems.containsKey(plr)){
             tdm.cantUseGems.remove(plr);
         }
         //add 10 second delay
         tdm.cantUseGems.put(plr, (System.currentTimeMillis()+delay));
         LinkedList<ItemStack> gems = new LinkedList<>();
-        for (ItemStack i : plr.getInventory().getView().getBottom()) {
+        for (ItemStack i : plr.getInventory().getContents()) {
             if (gm.isGem(i)){
                 gems.add(i);
             }
