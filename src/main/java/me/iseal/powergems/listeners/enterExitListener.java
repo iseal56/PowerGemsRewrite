@@ -2,11 +2,9 @@ package me.iseal.powergems.listeners;
 
 import de.leonhard.storage.Json;
 import me.iseal.powergems.Main;
-import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.GemManager;
 import me.iseal.powergems.managers.PlayerManager;
 import me.iseal.powergems.managers.SingletonManager;
-import me.iseal.powergems.misc.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

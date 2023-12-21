@@ -1,8 +1,6 @@
 package me.iseal.powergems.listeners;
 
-import de.leonhard.storage.Json;
 import me.iseal.powergems.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;

@@ -7,7 +7,6 @@ import me.iseal.powergems.commands.giveGemCommand;
 import me.iseal.powergems.listeners.*;
 import me.iseal.powergems.listeners.powerListeners.*;
 import me.iseal.powergems.managers.*;
-import me.iseal.powergems.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.PluginManager;

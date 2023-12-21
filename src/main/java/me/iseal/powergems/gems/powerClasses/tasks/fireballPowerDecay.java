@@ -2,17 +2,14 @@ package me.iseal.powergems.gems.powerClasses.tasks;
 
 import me.iseal.powergems.Main;
 import me.iseal.powergems.gems.fireGem;
-import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.managers.TempDataManager;
 import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 public class fireballPowerDecay extends BukkitRunnable {

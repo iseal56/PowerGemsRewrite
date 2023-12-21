@@ -1,11 +1,9 @@
 package me.iseal.powergems.listeners;
 
 import me.iseal.powergems.Main;
-import org.bukkit.entity.Fireball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.persistence.PersistentDataType;
 
 public class entityExplodeListener implements Listener {

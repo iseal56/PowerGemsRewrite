@@ -1,7 +1,6 @@
 package me.iseal.powergems.managers;
 
 import me.iseal.powergems.Main;
-import me.iseal.powergems.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

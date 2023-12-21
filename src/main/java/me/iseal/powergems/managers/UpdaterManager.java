@@ -6,10 +6,6 @@ import com.jeff_media.updatechecker.UserAgentBuilder;
 import me.iseal.powergems.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class UpdaterManager extends Thread{

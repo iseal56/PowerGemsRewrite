@@ -11,8 +11,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import java.util.MissingFormatArgumentException;
-
 public class multipleGemCraftDisabler implements Listener {
 
     private final ItemStack randomGem = Main.getSingletonManager().gemManager.getRandomGemItem();

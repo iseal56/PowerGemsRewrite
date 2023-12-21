@@ -49,14 +49,14 @@ public class GemManager {
         return generateItemStack(rand.nextInt(9) + 1, 1);
     }
 
-    public ItemMeta createLore(ItemMeta meta, int level){
+    public ItemMeta createLore(ItemMeta meta, int gemNumber){
         ArrayList<String> lore = new ArrayList<>();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         if (!pdc.has(Main.getGemLevelKey(), PersistentDataType.INTEGER)) {
             pdc.set(Main.getGemLevelKey(), PersistentDataType.INTEGER, 1);
         }
         lore.add(ChatColor.DARK_BLUE + "Level: " + ChatColor.DARK_GREEN + pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER));
-        switch (level){
+        switch (gemNumber){
             case 1:
                 lore.add(ChatColor.GREEN+"Abilities");
                 lore.add(ChatColor.WHITE + "Right click: Saturation, Strenght and Resistance (all lvl 2)");
@@ -129,7 +129,7 @@ public class GemManager {
     private ItemStack generateItemStack(int gemNumber, int gemLevel){
         ItemStack holderItem = new ItemStack(Material.EMERALD);
         ItemMeta reGemMeta = holderItem.getItemMeta();
-        reGemMeta = createLore(reGemMeta, gemLevel);
+        reGemMeta = createLore(reGemMeta, gemNumber);
         List<String> currentLore = reGemMeta.getLore();
         ItemStack finalGem = new ItemStack(Material.EMERALD);
         switch (gemNumber){
