@@ -2,4 +2,6 @@
 PowerGems.iml
 /Server/
 /.idea/
-/target/*
+/target*
+/target/maven-status/maven-compiler-plugin/compiler/inputFiles.lst
+/target/classes/plugin.yml
