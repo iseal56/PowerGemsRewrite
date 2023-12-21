@@ -1,0 +1,23 @@
+{
+        "name": "Java",
+        "build": {
+            "args": { 
+                "VARIANT": "17"
+            }
+        },
+        "customizations": {
+            "vscode": {
+                "extensions": [
+                    "Xsyntos.minecraftenv",
+                    "github.copilot",
+                    "github.copilot-chat",
+                    "vscjava.vscode-java-pack",
+                    "redhat.java",
+                    "vscjava.vscode-java-debug",
+                    "vscjava.vscode-java-test",
+                    "vscjava.vscode-maven"
+                ]
+            }
+        }
+    
+  }

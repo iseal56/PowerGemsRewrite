@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class sandMoveListener implements Listener {
 

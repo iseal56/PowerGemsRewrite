@@ -2,6 +2,8 @@ package me.iseal.powergems.listeners;
 
 import me.iseal.powergems.Main;
 import me.iseal.powergems.gems.*;
+import me.iseal.powergems.managers.TempDataManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,6 +19,8 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class useEvent implements Listener {
 
+    private final SingletonManager sm = Main.getSingletonManager();
+    private TempDataManager tdm = sm.tempDataManager;
     private final healingGem heal = new healingGem();
     private final powerGem power = new powerGem();
     private final fireGem fire = new fireGem();
@@ -34,6 +38,14 @@ public class useEvent implements Listener {
             return;
         }
         Player player = e.getPlayer();
+        if (tdm.cantUseGems.containsKey(player)) {
+            if (System.currentTimeMillis() < tdm.cantUseGems.get(player)) {
+                player.sendMessage(ChatColor.DARK_RED + "You can't use gems for another " + (tdm.cantUseGems.get(player) - System.currentTimeMillis()) / 1000 + " seconds!");
+                return;
+            } else {
+                tdm.cantUseGems.remove(player);
+            }
+        }
         ItemStack offHandItem = player.getInventory().getItemInOffHand();
         ItemStack mainHandItem = player.getInventory().getItemInMainHand();
         ItemStack item = null;

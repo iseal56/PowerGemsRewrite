@@ -2,7 +2,6 @@ package me.iseal.powergems.listeners.powerListeners;
 
 import me.iseal.powergems.Main;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.SpectralArrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
