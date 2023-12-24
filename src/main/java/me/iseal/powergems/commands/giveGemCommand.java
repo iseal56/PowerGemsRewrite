@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class giveGemCommand implements CommandExecutor {
 
-    SingletonManager sm = Main.getSingletonManager();
+    private final SingletonManager sm = Main.getSingletonManager();
     
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {

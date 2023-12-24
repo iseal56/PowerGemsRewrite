@@ -129,8 +129,6 @@ public class GemManager {
     private ItemStack generateItemStack(int gemNumber, int gemLevel){
         ItemStack holderItem = new ItemStack(Material.EMERALD);
         ItemMeta reGemMeta = holderItem.getItemMeta();
-        reGemMeta = createLore(reGemMeta, gemNumber);
-        List<String> currentLore = reGemMeta.getLore();
         ItemStack finalGem = new ItemStack(Material.EMERALD);
         switch (gemNumber){
             case 1:
@@ -168,9 +166,8 @@ public class GemManager {
         reDataContainer.set(Main.getIsGemKey(), PersistentDataType.BOOLEAN, true);
         reDataContainer.set(Main.getGemPowerKey(), PersistentDataType.INTEGER, gemNumber);
         reDataContainer.set(Main.getGemLevelKey(), PersistentDataType.INTEGER, gemLevel);
-        reGemMeta = createLore(reGemMeta);
+        reGemMeta = createLore(reGemMeta, gemNumber);
         reGemMeta.setCustomModelData(gemNumber);
-        reGemMeta.setLore(currentLore);
         finalGem.setItemMeta(reGemMeta);
         return finalGem;
     }
