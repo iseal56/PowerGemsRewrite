@@ -110,6 +110,7 @@ public class GemManager {
                 lore.add(ChatColor.WHITE + "Right click: Make a wall of lava");
                 lore.add(ChatColor.WHITE + "Shift click: Spawn a blaze to fight for you");
                 lore.add(ChatColor.WHITE + "Left click: 1 minute of Fire resistance");
+break;
             default:
                 Bukkit.getLogger().warning("There was an error creating a gem, please inform the developer.");
                 break;
