@@ -12,7 +12,7 @@ public enum CooldownManager {
     FIRE_SHIFT(Main.cd.getOrSetDefault("Fire_Shift", 60)),
     FIRE_RIGHT(Main.cd.getOrSetDefault("Fire_Right", 30)),
     FIRE_LEFT(Main.cd.getOrSetDefault("Fire_Left", 120)),
-    AIR_SHIFT(Main.cd.getOrSetDefault("Air_Shift", 15)),
+    AIR_SHIFT(Main.cd.getOrSetDefault("Air_Shift", 30)),
     AIR_RIGHT(Main.cd.getOrSetDefault("Air_Right", 30)),
     AIR_LEFT(Main.cd.getOrSetDefault("Air_Left", 60)),
     LIGHTNING_SHIFT(Main.cd.getOrSetDefault("Lightning_Shift", 120)),

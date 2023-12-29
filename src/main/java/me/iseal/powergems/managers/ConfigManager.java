@@ -14,7 +14,7 @@ public class ConfigManager {
         config.setDefault("giveGemOnFirstLogin", true);
         config.setDefault("canUpgradeGems", true);
         config.setDefault("canCraftGems", true);
-        config.setDefault("cooldownBoostPerLevelInSeconds", 5L);
+        config.setDefault("cooldownBoostPerLevelInSeconds", 2L);
         config.setDefault("keepGemsOnDeath", true);
         config.setDefault("gemsHaveDescriptions", false);
         config.setDefault("explosionDamageAllowed", true);
