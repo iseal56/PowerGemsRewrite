@@ -6,6 +6,8 @@ import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.CooldownManager;
 import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.misc.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -66,13 +68,13 @@ public class lavaGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
         //power
         int radius = 5;
-        int times = level/2;
+        int times = (level/2)+1;
         HashMap<Block, Material> toChangeBack = new HashMap<>();
 
         while (times != 0) {
@@ -114,7 +116,7 @@ public class lavaGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
@@ -140,7 +142,7 @@ public class lavaGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }

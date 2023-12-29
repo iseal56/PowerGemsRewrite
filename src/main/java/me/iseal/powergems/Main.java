@@ -5,6 +5,7 @@ import me.iseal.powergems.commands.checkUpdateCommand;
 import me.iseal.powergems.commands.giveAllGemCommand;
 import me.iseal.powergems.commands.giveGemCommand;
 import me.iseal.powergems.listeners.*;
+import me.iseal.powergems.listeners.passivePowerListeners.damageListener;
 import me.iseal.powergems.listeners.powerListeners.*;
 import me.iseal.powergems.managers.*;
 import org.bukkit.Bukkit;
@@ -50,6 +51,7 @@ public final class Main extends JavaPlugin {
         if (config.getBoolean("preventGemPowerTampering")) pluginManager.registerEvents(new noGemHittingListener(), this);
         pluginManager.registerEvents(new ironProjectileLandListener(), this);
         pluginManager.registerEvents(new multipleGemCraftDisabler(), this);
+        pluginManager.registerEvents(new damageListener(), this);
         pluginManager.registerEvents(sm.strenghtMoveListen, this);
         pluginManager.registerEvents(sm.sandMoveListen, this);
         pluginManager.registerEvents(sm.recipeManager, this);

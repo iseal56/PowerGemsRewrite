@@ -29,9 +29,7 @@ public class strenghtMoveListener implements Listener {
                 }
                 else {
                     event.setCancelled(true);
-                    player.setFlying(true);
                     player.teleport(from);
-                    player.setFlying(false);
                     player.sendMessage(ChatColor.DARK_RED+"You cannot enter the Arena!");
                     return;
                 }

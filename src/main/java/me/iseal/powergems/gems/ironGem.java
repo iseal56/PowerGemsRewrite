@@ -4,6 +4,8 @@ import me.iseal.powergems.Main;
 import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.CooldownManager;
 import me.iseal.powergems.misc.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
@@ -64,7 +66,7 @@ public class ironGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
@@ -97,7 +99,7 @@ public class ironGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
@@ -139,7 +141,7 @@ public class ironGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }

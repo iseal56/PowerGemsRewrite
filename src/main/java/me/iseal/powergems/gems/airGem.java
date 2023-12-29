@@ -4,6 +4,8 @@ import me.iseal.powergems.Main;
 import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.CooldownManager;
 import me.iseal.powergems.misc.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.block.Action;
@@ -61,14 +63,13 @@ public class airGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
         //power
         int distance = 5*(level/2); // Maximum distance between the players
         double force = 1.5+level; // Strength of the pull
-
         RayTraceResult result = plr.getWorld().rayTrace(plr.getEyeLocation(), plr.getEyeLocation().getDirection(), distance, FluidCollisionMode.ALWAYS, true, 1, entity -> !entity.equals(plr) && entity instanceof Player);
         if (result == null){
             plr.sendMessage(ChatColor.DARK_RED+"You need to aim at a player to do that");
@@ -101,7 +102,7 @@ public class airGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
@@ -140,7 +141,7 @@ public class airGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }

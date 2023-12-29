@@ -15,15 +15,20 @@ import java.util.Arrays;
 public class damageListener implements Listener {
 
     private final PlayerManager pm = Main.getSingletonManager().playerManager;
-    private final ArrayList<Integer> compatibleIDs = new ArrayList<>(Arrays.asList(3,6));
+    private final ArrayList<Integer> noFall = new ArrayList<>(Arrays.asList(3,6));
 
     @EventHandler
     public void onDamage(EntityDamageEvent e){
-        if (!(e instanceof Player)) return;
-        if (!e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) return;
-        for (ItemStack i : pm.getPlayerGems((Player) e.getEntity())){
-            if (compatibleIDs.contains(i.getItemMeta().getPersistentDataContainer().get(Main.getGemPowerKey(), PersistentDataType.INTEGER))){
-                e.setCancelled(true);
+        if (!(e.getEntity() instanceof Player)) return;
+        Player plr = (Player) e.getEntity();
+        checkIfFall(plr, e);
+    }
+
+    private void checkIfFall(Player p, EntityDamageEvent event){
+        if (!event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) return;
+        for (ItemStack i : pm.getPlayerGems(p)){
+            if (noFall.contains(i.getItemMeta().getPersistentDataContainer().get(Main.getGemPowerKey(), PersistentDataType.INTEGER))){
+                event.setCancelled(true);
             }
         }
     }

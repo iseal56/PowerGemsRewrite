@@ -5,6 +5,8 @@ import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.CooldownManager;
 import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.misc.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -63,12 +65,16 @@ public class sandGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
         //power
         RayTraceResult result = plr.getWorld().rayTrace(plr.getEyeLocation(), plr.getEyeLocation().getDirection(), 200D, FluidCollisionMode.ALWAYS, true, 1, entity -> !entity.equals(plr) && entity instanceof Player);
+        if (result == null || result.getHitEntity() == null){
+            plr.sendMessage(ChatColor.DARK_RED+"You need to aim at a player to do that");
+            return;
+        }
         Player target = (Player) result.getHitEntity();
         if (target == null){
             plr.sendMessage(ChatColor.DARK_RED+"You must be looking at a player to do that");
@@ -96,7 +102,7 @@ public class sandGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
@@ -129,7 +135,7 @@ public class sandGem {
                 } else {
                     endtime = String.format("0%d:%d", minutes, seconds);
                 }
-                plr.sendMessage(ChatColor.DARK_RED + "You are still on cooldown, time left: " + endtime);
+                plr.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Cooldown: "+endtime));
                 return;
             }
         }
