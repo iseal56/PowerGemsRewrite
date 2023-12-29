@@ -1,7 +1,7 @@
 package me.iseal.powergems.listeners.passivePowerListeners;
 
 import me.iseal.powergems.Main;
-import me.iseal.powergems.managers.PlayerManager;
+import me.iseal.powergems.managers.GemManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class damageListener implements Listener {
 
-    private final PlayerManager pm = Main.getSingletonManager().playerManager;
+    private final GemManager gm = Main.getSingletonManager().gemManager;
     private final ArrayList<Integer> noFall = new ArrayList<>(Arrays.asList(3,6));
 
     @EventHandler
@@ -26,9 +26,10 @@ public class damageListener implements Listener {
 
     private void checkIfFall(Player p, EntityDamageEvent event){
         if (!event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) return;
-        for (ItemStack i : pm.getPlayerGems(p)){
+        for (ItemStack i : gm.getPlayerGems(p)){
             if (noFall.contains(i.getItemMeta().getPersistentDataContainer().get(Main.getGemPowerKey(), PersistentDataType.INTEGER))){
                 event.setCancelled(true);
+                return;
             }
         }
     }
