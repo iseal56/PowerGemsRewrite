@@ -51,6 +51,9 @@ public class RecipeManager implements Listener {
         if (!i.getItemMeta().getPersistentDataContainer().has(Main.getIsRandomGemKey(), PersistentDataType.BYTE)){
             return;
         }
+        if (e.getCurrentItem() == null){
+            return;
+        }
         if (!e.getCurrentItem().isSimilar(gemManager.getRandomGemItem())){
             return;
         }
