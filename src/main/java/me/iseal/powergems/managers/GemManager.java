@@ -94,9 +94,9 @@ public class GemManager {
                 break;
             case 7:
                 lore.add(ChatColor.GREEN+"Abilities");
-                lore.add(ChatColor.WHITE + "Right click: Strikes lightning at the target location and nearby entities, damaging them.");
-                lore.add(ChatColor.WHITE + "Shift click: Emits a thunder sound effect and applies a glowing potion effect to nearby entities, excluding the player.");
-                lore.add(ChatColor.WHITE + "Left click: Launches the player forward in the direction rail.");
+                lore.add(ChatColor.WHITE + "Right click: Weakens the target player, reducing their strength temporarily.");
+                lore.add(ChatColor.WHITE + "Shift click: Engulfs the target player in darkness, impairing their vision and movement.");
+                lore.add(ChatColor.WHITE + "Left click: Creates a sand block temporarily that slows enemies passing on it.");
                 break;
             case 8:
                 lore.add(ChatColor.GREEN+"Abilities");
