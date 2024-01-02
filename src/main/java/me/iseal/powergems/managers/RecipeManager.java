@@ -105,7 +105,7 @@ public class RecipeManager implements Listener {
     }
     private static String generateName(String s){
         s = s.replace(" ", "_");
-        String finalString = "";
+        StringBuilder finalString = new StringBuilder();
         boolean lastWas = false;
         ArrayList<Character> characterList = (ArrayList<Character>) s.chars().mapToObj(c -> (char)c).collect(Collectors.toList());
 
@@ -118,8 +118,8 @@ public class RecipeManager implements Listener {
                 lastWas = false;
                 continue;
             }
-            finalString = finalString+characterList.get(i);
+            finalString.append(characterList.get(i));
         }
-        return finalString.toLowerCase();
+        return finalString.toString().toLowerCase();
     }
 }
