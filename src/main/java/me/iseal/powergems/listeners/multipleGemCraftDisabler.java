@@ -18,6 +18,9 @@ public class multipleGemCraftDisabler implements Listener {
 
     @EventHandler
     public void onClose(InventoryCloseEvent e){
+        if (!(e.getInventory().getHolder() instanceof Player)) {
+            return;
+        }
          if (!(e.getView().getBottomInventory() instanceof PlayerInventory)) {
             return;
         }

@@ -103,7 +103,7 @@ public class RecipeManager implements Listener {
                 ItemMeta im = newStack.getItemMeta();
                 PersistentDataContainer pdc = im.getPersistentDataContainer();
                 pdc.set(Main.getGemLevelKey(), PersistentDataType.INTEGER, level);
-                im = gemManager.createLore(im, level);
+                im = gemManager.createLore(im);
                 newStack.setItemMeta(im);
                 //generate namespacedkey based on name+level
                 String key = generateName(im.getDisplayName())+"_"+level+"_upgrade";

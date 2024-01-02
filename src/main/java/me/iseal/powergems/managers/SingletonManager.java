@@ -16,7 +16,6 @@ public class SingletonManager {
     public final RecipeManager recipeManager = new RecipeManager();
     public final UpdaterManager updaterManager = new UpdaterManager();
     public final ConfigManager configManager = new ConfigManager();
-    public final PlayerManager playerManager = new PlayerManager();
     public final sandMoveListener sandMoveListen = new sandMoveListener();
     public final iceTargetListener iceTargetListen = new iceTargetListener();
     public final me.iseal.powergems.listeners.fallingBlockHitListener fallingBlockHitListen = new fallingBlockHitListener();

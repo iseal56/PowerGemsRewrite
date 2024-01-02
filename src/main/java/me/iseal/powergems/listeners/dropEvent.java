@@ -56,11 +56,15 @@ public class dropEvent implements Listener {
     {
         final List<ItemStack> toRestore = keepItems.get(e.getPlayer().getUniqueId());
         if (toRestore != null) {
-            for (ItemStack item : toRestore){
-                PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
-                if (pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) > 1){
-                    e.getPlayer().getInventory().addItem(Main.getSingletonManager().gemManager.createGem(pdc.get(Main.getGemPowerKey(), PersistentDataType.INTEGER), pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) - 1));
+            if (Main.config.getBoolean("doGemDecay")) {
+                for (ItemStack item : toRestore) {
+                    PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+                    if (pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) > 1) {
+                        e.getPlayer().getInventory().addItem(Main.getSingletonManager().gemManager.createGem(pdc.get(Main.getGemPowerKey(), PersistentDataType.INTEGER), pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) - 1));
+                    }
                 }
+            } else {
+                e.getPlayer().getInventory().addItem(toRestore.toArray(new ItemStack[0]));
             }
             keepItems.remove(e.getPlayer().getUniqueId());
         }

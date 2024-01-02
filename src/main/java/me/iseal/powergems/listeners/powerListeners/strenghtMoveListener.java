@@ -20,6 +20,9 @@ public class strenghtMoveListener implements Listener {
             Location from = event.getFrom();
             Location to = event.getTo();
 
+            if (startingLocation.getWorld() != to.getWorld()) {
+                return;
+            }
             if (to.distance(startingLocation) > radius && from.distance(startingLocation) > 6) {
                 return;
             }
