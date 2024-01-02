@@ -20,7 +20,6 @@ public class ConfigManager {
         config.setDefault("explosionDamageAllowed", true);
         config.setDefault("preventGemPowerTampering", true);
         config.setDefault("doGemDecay", true);
-        //todo add dogemdecay
     }
 
     public long getGemCooldownBoost(){
