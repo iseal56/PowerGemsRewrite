@@ -17,7 +17,7 @@ public enum CooldownManager {
     AIR_LEFT(Main.cd.getOrSetDefault("Air_Left", 60)),
     LIGHTNING_SHIFT(Main.cd.getOrSetDefault("Lightning_Shift", 120)),
     LIGHTNING_RIGHT(Main.cd.getOrSetDefault("Lightning_Right", 45)),
-    LIGHTNING_LEFT(Main.cd.getOrSetDefault("Lightning_Left", 15)),
+    LIGHTNING_LEFT(Main.cd.getOrSetDefault("Lightning_Left", 30)),
     IRON_SHIFT(Main.cd.getOrSetDefault("Iron_Shift", 60)),
     IRON_RIGHT(Main.cd.getOrSetDefault("Iron_Right", 20)),
     IRON_LEFT(Main.cd.getOrSetDefault("Iron_Left", 60)),

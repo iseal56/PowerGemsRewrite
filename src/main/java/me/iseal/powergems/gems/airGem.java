@@ -76,8 +76,10 @@ public class airGem {
             return;
         }
         Player targetplr = (Player) result.getHitEntity();
+        if (targetplr == null){
+            plr.sendMessage(ChatColor.DARK_RED+"You need to aim at a player to do that");
+        }
         Location playerLocation = plr.getLocation();
-        //
         Location targetLocation = targetplr.getLocation();
         Vector direction = playerLocation.subtract(targetLocation).toVector().normalize();
         targetplr.setVelocity(targetplr.getVelocity().add(direction.multiply(force)));

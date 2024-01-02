@@ -23,7 +23,7 @@ public class useEvent implements Listener {
     private SingletonManager sm = Main.getSingletonManager();
     private TempDataManager tdm = sm.tempDataManager;
     private final healingGem heal = new healingGem();
-    private final powerGem power = new powerGem();
+    private final strengthGem power = new strengthGem();
     private final fireGem fire = new fireGem();
     private final airGem air = new airGem();
     private final ironGem iron = new ironGem();
@@ -39,14 +39,6 @@ public class useEvent implements Listener {
             return;
         }
         Player player = e.getPlayer();
-        if (tdm.cantUseGems.containsKey(player)) {
-            if (System.currentTimeMillis() < tdm.cantUseGems.get(player)) {
-                player.sendMessage(ChatColor.DARK_RED + "You can't use gems for another " + (tdm.cantUseGems.get(player) - System.currentTimeMillis()) / 1000 + " seconds!");
-                return;
-            } else {
-                tdm.cantUseGems.remove(player);
-            }
-        }
         ItemStack offHandItem = player.getInventory().getItemInOffHand();
         ItemStack mainHandItem = player.getInventory().getItemInMainHand();
         ItemStack item = null;
@@ -60,6 +52,14 @@ public class useEvent implements Listener {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
         if (dataContainer.has(Main.getIsGemKey(), PersistentDataType.BOOLEAN) && dataContainer.has(Main.getGemPowerKey(), PersistentDataType.INTEGER)) {
+            if (tdm.cantUseGems.containsKey(player)) {
+                if (System.currentTimeMillis() < tdm.cantUseGems.get(player)) {
+                    player.sendMessage(ChatColor.DARK_RED + "You can't use gems for another " + (tdm.cantUseGems.get(player) - System.currentTimeMillis()) / 1000 + " seconds!");
+                    return;
+                } else {
+                    tdm.cantUseGems.remove(player);
+                }
+            }
             if (!item.getItemMeta().hasCustomModelData()){
                 Bukkit.getLogger().info("Found legacy gem! Migrating...");
                 meta.setCustomModelData(dataContainer.get(Main.getGemPowerKey(), PersistentDataType.INTEGER));

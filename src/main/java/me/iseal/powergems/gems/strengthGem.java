@@ -8,7 +8,6 @@ import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.misc.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import static me.iseal.powergems.Main.gemActive;
 
-public class powerGem {
+public class strengthGem {
 
     private Map<UUID, Long> rightCooldowns = new HashMap<>();
     private Map<UUID, Long> leftCooldowns = new HashMap<>();
@@ -37,7 +36,7 @@ public class powerGem {
     private int level;
 
     public boolean handlePower(Player p, Action a, int lvl){
-        if (!gemActive.getOrSetDefault("power", true)) {
+        if (!gemActive.getOrSetDefault("strength", true)) {
             return false;
         }
         level = lvl;
@@ -97,7 +96,7 @@ public class powerGem {
             }
         }
         double distance = 10;
-        double power = 3;
+        double power = 2+(level/2);
         Location playerLocation = plr.getLocation();
         List<Entity> nearbyEntities = plr.getNearbyEntities(distance, distance, distance);
         for (Entity entity : nearbyEntities) {
