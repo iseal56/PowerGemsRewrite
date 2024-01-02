@@ -6,7 +6,7 @@
 
     <groupId>me.iseal</groupId>
     <artifactId>PowerGems</artifactId>
-    <version>3.2.0.0-DEV3</version>
+    <version>3.2.0.0-DEV6-EXP4</version>
     <packaging>jar</packaging>
 
     <name>PowerGems</name>
@@ -42,6 +42,10 @@
                                 <relocation>
                                     <pattern>com.jeff_media.updatechecker</pattern>
                                     <shadedPattern>me.iseal.powergems.misc.updatechecker</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>me.iseal.powergems.misc.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -107,6 +111,12 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>com.jeff_media</groupId>
             <artifactId>SpigotUpdateChecker</artifactId>

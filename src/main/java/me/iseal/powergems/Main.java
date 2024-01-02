@@ -8,10 +8,18 @@ import me.iseal.powergems.listeners.*;
 import me.iseal.powergems.listeners.passivePowerListeners.damageListener;
 import me.iseal.powergems.listeners.powerListeners.*;
 import me.iseal.powergems.managers.*;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.AdvancedBarChart;
+import org.bstats.charts.SimpleBarChart;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.logging.Logger;
 
 public final class Main extends JavaPlugin {
 
@@ -26,10 +34,12 @@ public final class Main extends JavaPlugin {
     private static NamespacedKey isGemProjectileKey = null;
     private static NamespacedKey isRandomGemKey = null;
     private static NamespacedKey isGemExplosionKey = null;
+    private final Logger l = Bukkit.getLogger();
 
 
     @Override
     public void onEnable() {
+        l.info("Initializing plugin");
         plugin = this;
         sm = new SingletonManager();
         sm.updaterManager.start();
@@ -42,11 +52,13 @@ public final class Main extends JavaPlugin {
         isGemProjectileKey = new NamespacedKey(this, "is_gem_projectile");
         isRandomGemKey = new NamespacedKey(this, "is_random_gem");
         isGemExplosionKey = new NamespacedKey(this, "is_gem_explosion");
+        l.info("Registering recipes");
         sm.recipeManager.initiateRecipes();
+        l.info("Registering listeners");
         PluginManager pluginManager = Bukkit.getServer().getPluginManager();
         pluginManager.registerEvents(new useEvent(), this);
         pluginManager.registerEvents(new enterExitListener(), this);
-        if (config.getBoolean("canDropGems") || config.getBoolean("keepGemsOnDeath")) pluginManager.registerEvents(new dropEvent(), this);
+        if (config.getBoolean("keepGemsOnDeath")) pluginManager.registerEvents(new dropEvent(), this);
         if (!config.getBoolean("explosionDamageAllowed")) pluginManager.registerEvents(new entityExplodeListener(), this);
         if (config.getBoolean("preventGemPowerTampering")) pluginManager.registerEvents(new noGemHittingListener(), this);
         pluginManager.registerEvents(new ironProjectileLandListener(), this);
@@ -55,9 +67,28 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(sm.strenghtMoveListen, this);
         pluginManager.registerEvents(sm.sandMoveListen, this);
         pluginManager.registerEvents(sm.recipeManager, this);
+        l.info("Registering commands");
         Bukkit.getServer().getPluginCommand("givegem").setExecutor(new giveGemCommand());
         Bukkit.getServer().getPluginCommand("giveallgem").setExecutor(new giveAllGemCommand());
         Bukkit.getServer().getPluginCommand("checkupdates").setExecutor(new checkUpdateCommand());
+        l.info("Registering bstats metrics");
+        Metrics metrics = new Metrics(this, 108943);
+        metrics.addCustomChart(new SimpleBarChart("Gems enabled", new Callable<Map<String, Integer>>() {
+            @Override
+            public Map<String, Integer> call() throws Exception {
+                Map<String, Integer> map = new HashMap<>();
+                map.put("Strength", gemActive.getBoolean("strength") ? 1 : 0);
+                map.put("Healing", gemActive.getBoolean("healing") ? 1 : 0);
+                map.put("Air", gemActive.getBoolean("air") ? 1 : 0);
+                map.put("Fire", gemActive.getBoolean("fire") ? 1 : 0);
+                map.put("Iron", gemActive.getBoolean("iron") ? 1 : 0);
+                map.put("Lightning", gemActive.getBoolean("lightning") ? 1 : 0);
+                map.put("Sand", gemActive.getBoolean("sand") ? 1 : 0);
+                map.put("Ice", gemActive.getBoolean("ice") ? 1 : 0);
+                return map;
+            }
+        }));
+        //TODO: addon api
     }
 
     @Override

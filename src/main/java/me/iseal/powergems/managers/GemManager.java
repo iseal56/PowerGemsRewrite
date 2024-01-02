@@ -4,15 +4,14 @@ import me.iseal.powergems.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GemManager {
 
@@ -110,7 +109,7 @@ public class GemManager {
                 lore.add(ChatColor.WHITE + "Right click: Make a wall of lava");
                 lore.add(ChatColor.WHITE + "Shift click: Spawn a blaze to fight for you");
                 lore.add(ChatColor.WHITE + "Left click: 1 minute of Fire resistance");
-break;
+                break;
             default:
                 Bukkit.getLogger().warning("There was an error creating a gem, please inform the developer.");
                 break;
@@ -179,6 +178,12 @@ break;
             allGems.put(i,generateItemStack(i, 1));
         }
         return allGems;
+    }
+
+    public ArrayList<ItemStack> getPlayerGems(Player plr){
+        ArrayList<ItemStack> foundGems = new ArrayList<>(1);
+        Arrays.stream(plr.getInventory().getContents().clone()).filter(this::isGem).forEach(foundGems::add);
+        return foundGems;
     }
 
 }

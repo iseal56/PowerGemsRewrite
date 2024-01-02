@@ -21,6 +21,9 @@ public class sandMoveListener implements Listener {
             Player p = e.getPlayer();
             Location to = e.getTo();
             for (Block l : slowSandList){
+                if (l.getWorld() != to.getWorld()){
+                    continue;
+                }
                 if (to.distance(l.getLocation()) < 1.5){
                     p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 2));
                 }
