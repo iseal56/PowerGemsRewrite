@@ -107,7 +107,7 @@ public class iceGem {
             }
         }
         //power
-        int distance = 5*(level/2); // Maximum distance between the players
+        int distance = 15+level*5; // Maximum distance between the players
         RayTraceResult result = plr.getWorld().rayTrace(plr.getEyeLocation(), plr.getEyeLocation().getDirection(), distance, FluidCollisionMode.ALWAYS, true, 1, entity -> !entity.equals(plr) && entity instanceof Player);
         if (result == null){
             plr.sendMessage(ChatColor.DARK_RED+"You need to aim at a player to do that");

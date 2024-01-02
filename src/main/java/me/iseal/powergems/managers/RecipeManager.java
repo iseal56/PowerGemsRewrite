@@ -34,18 +34,6 @@ public class RecipeManager implements Listener {
     }
 
     @EventHandler
-    public void onCraft(PrepareItemCraftEvent event){
-        if (!event.getInventory().contains(Material.TOTEM_OF_UNDYING)){
-            return;
-        }
-        if (event.getView().getType() == InventoryType.WORKBENCH) {
-            if (event.getInventory().getResult() != null && event.getInventory().getResult().getType() == Material.POTION){
-                event.getInventory().setResult(gemManager.getRandomGemItem());
-            }
-        }
-    }
-
-    @EventHandler
     public void onItemPickup(InventoryClickEvent e){
         if (e.getInventory().getType() != InventoryType.WORKBENCH){
             return;
@@ -68,13 +56,7 @@ public class RecipeManager implements Listener {
         }
         if (Main.config.getBoolean("allowOnlyOneGem")) {
             for (ItemStack is : e.getWhoClicked().getInventory().getContents()) {
-                if (is == null){
-                    continue;
-                }
-                if (!is.getType().equals(Material.EMERALD)) {
-                    continue;
-                }
-                if (is.getItemMeta().getPersistentDataContainer().has(Main.getIsGemKey(), PersistentDataType.BYTE)) {
+              if (gemManager.isGem(is)) {
                     e.getWhoClicked().getInventory().remove(is);
                 }
             }
