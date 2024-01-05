@@ -3,11 +3,11 @@ package me.iseal.powergems.gems;
 import me.iseal.powergems.Main;
 import me.iseal.powergems.managers.ConfigManager;
 import me.iseal.powergems.managers.CooldownManager;
+import me.iseal.powergems.managers.TempDataManager;
 import me.iseal.powergems.misc.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -33,8 +33,12 @@ public class ironGem {
     private final long leftCooldown = CooldownManager.IRON_LEFT.getCooldown();
     private final long shiftCooldown = CooldownManager.IRON_SHIFT.getCooldown();
     private Utils u = Main.getSingletonManager().utils;
+    private final TempDataManager tdm = Main.getSingletonManager().tempDataManager;
     private final ConfigManager cm = Main.getSingletonManager().configManager;
     private int level;
+    private final AttributeModifier armorModifier = new AttributeModifier(UUID.randomUUID(), "Iron Fortification", 8, AttributeModifier.Operation.ADD_NUMBER);
+    private final AttributeModifier toughnessModifier = new AttributeModifier(UUID.randomUUID(), "Iron Fortification", 4, AttributeModifier.Operation.ADD_NUMBER);
+    private final AttributeModifier knockbackAttribute = new AttributeModifier(UUID.randomUUID(), "Iron Fortification - Knockback", 5, AttributeModifier.Operation.ADD_NUMBER);
 
     public boolean handlePower(Player p, Action a, int lvl){
         if (!gemActive.getOrSetDefault("iron", true)) {
@@ -73,11 +77,16 @@ public class ironGem {
         //power
         plr.getWorld().spawnParticle(Particle.CRIT, plr.getLocation().add(0, 1, 0), 20);
         plr.setAbsorptionAmount(2*level);
-        plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(5.0);
+        AttributeInstance knockbackInstance = plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
+        knockbackInstance.addModifier(knockbackAttribute);
         plr.setVelocity(new Vector(0, 0, 0));
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-            plr.setAbsorptionAmount(0.0);
-            plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(0);
+            if (plr.isOnline()) {
+                plr.setAbsorptionAmount(0.0);
+                knockbackInstance.removeModifier(knockbackAttribute);
+            } else {
+                tdm.ironRightLeft.add(plr);
+            }
         }, 100);
         //cooldown add
         rightCooldowns.put(plrID, System.currentTimeMillis()+(rightCooldown*1000-(level*cm.getGemCooldownBoost())));
@@ -148,15 +157,29 @@ public class ironGem {
         //power
         AttributeInstance armorAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR);
         AttributeInstance toughnessAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS);
-        AttributeModifier armorModifier = new AttributeModifier(UUID.randomUUID(), "Iron Fortification", 8, AttributeModifier.Operation.ADD_NUMBER);
-        AttributeModifier toughnessModifier = new AttributeModifier(UUID.randomUUID(), "Iron Fortification", 4, AttributeModifier.Operation.ADD_NUMBER);
         armorAttribute.addModifier(armorModifier);
         toughnessAttribute.addModifier(toughnessModifier);
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-            armorAttribute.removeModifier(armorModifier);
-            toughnessAttribute.removeModifier(toughnessModifier);
+            if (plr.isOnline()) {
+                armorAttribute.removeModifier(armorModifier);
+                toughnessAttribute.removeModifier(toughnessModifier);
+            } else {
+                tdm.ironShiftLeft.add(plr);
+            }
         }, 200);
         //cooldown add
         shiftCooldowns.put(plrID, System.currentTimeMillis()+(shiftCooldown*1000-(level*cm.getGemCooldownBoost())));
     }
+
+    public void removeShiftModifiers(Player plr){
+        AttributeInstance armorAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR);
+        AttributeInstance toughnessAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS);
+        armorAttribute.removeModifier(armorModifier);
+        toughnessAttribute.removeModifier(toughnessModifier);
+    }
+    public void removeRightModifiers(Player plr){
+        AttributeInstance knockbackInstance = plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
+        knockbackInstance.removeModifier(knockbackAttribute);
+    }
+
 }

@@ -2,6 +2,7 @@ package me.iseal.powergems.listeners;
 
 import de.leonhard.storage.Json;
 import me.iseal.powergems.Main;
+import me.iseal.powergems.gems.ironGem;
 import me.iseal.powergems.managers.GemManager;
 import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.managers.TempDataManager;
@@ -19,6 +20,7 @@ public class enterExitListener implements Listener {
 
     Json playerJoined = new Json("playerData", Main.getPlugin().getDataFolder().getPath());
     private final SingletonManager sm = Main.getSingletonManager();
+    private final ironGem ironGem = new ironGem();
     private final GemManager gm = sm.gemManager;
     private TempDataManager tdm = sm.tempDataManager;
     private final long delay = 30*1000;
@@ -26,17 +28,9 @@ public class enterExitListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player plr = e.getPlayer();
-        if (tdm.cantUseGems.containsKey(plr)){
-            tdm.cantUseGems.remove(plr);
-        }
-        //add 10 second delay
-        tdm.cantUseGems.put(plr, (System.currentTimeMillis()+delay));
-        LinkedList<ItemStack> gems = new LinkedList<>();
-        for (ItemStack i : plr.getInventory().getContents()) {
-            if (gm.isGem(i)){
-                gems.add(i);
-            }
-        }
+
+        checkIfRemovePowers(plr);
+        addDelay(plr);
         giveGemOnFirstLogin(plr);
     }
 
@@ -51,5 +45,29 @@ public class enterExitListener implements Listener {
         }
     }
 
+    private void addDelay(Player plr){
+        if (tdm.cantUseGems.containsKey(plr)){
+            tdm.cantUseGems.remove(plr);
+        }
+        //add delay
+        tdm.cantUseGems.put(plr, (System.currentTimeMillis()+delay));
+        LinkedList<ItemStack> gems = new LinkedList<>();
+        for (ItemStack i : plr.getInventory().getContents()) {
+            if (gm.isGem(i)){
+                gems.add(i);
+            }
+        }
+    }
+
+    private void checkIfRemovePowers(Player plr){
+        if (tdm.ironShiftLeft.contains(plr)){
+            ironGem.removeShiftModifiers(plr);
+            tdm.ironShiftLeft.remove(plr);
+        }
+        if (tdm.ironRightLeft.contains(plr)){
+            ironGem.removeRightModifiers(plr);
+            tdm.ironRightLeft.remove(plr);
+        }
+    }
 
 }

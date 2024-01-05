@@ -9,7 +9,6 @@ import me.iseal.powergems.listeners.passivePowerListeners.damageListener;
 import me.iseal.powergems.listeners.powerListeners.*;
 import me.iseal.powergems.managers.*;
 import org.bstats.bukkit.Metrics;
-import org.bstats.charts.AdvancedBarChart;
 import org.bstats.charts.SimpleBarChart;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -58,7 +57,8 @@ public final class Main extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getServer().getPluginManager();
         pluginManager.registerEvents(new useEvent(), this);
         pluginManager.registerEvents(new enterExitListener(), this);
-        if (config.getBoolean("keepGemsOnDeath")) pluginManager.registerEvents(new dropEvent(), this);
+        if (config.getBoolean("keepGemsOnDeath")) pluginManager.registerEvents(new deathEvent(), this);
+        if (!config.getBoolean("canDropGems")) pluginManager.registerEvents(new dropEvent(), this);
         if (!config.getBoolean("explosionDamageAllowed")) pluginManager.registerEvents(new entityExplodeListener(), this);
         if (config.getBoolean("preventGemPowerTampering")) pluginManager.registerEvents(new noGemHittingListener(), this);
         pluginManager.registerEvents(new ironProjectileLandListener(), this);
