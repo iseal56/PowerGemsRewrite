@@ -8,6 +8,7 @@ import me.iseal.powergems.misc.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
@@ -81,13 +82,15 @@ public class ironGem {
         knockbackInstance.addModifier(knockbackAttribute);
         plr.setVelocity(new Vector(0, 0, 0));
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-            if (plr.isOnline()) {
+            OfflinePlayer op = Bukkit.getOfflinePlayer(plrID);
+            System.out.println("is online: "+op.isOnline());
+            if (op.isOnline()) {;
                 plr.setAbsorptionAmount(0.0);
                 knockbackInstance.removeModifier(knockbackAttribute);
             } else {
                 tdm.ironRightLeft.add(plr);
             }
-        }, 100);
+        }, 150*level);
         //cooldown add
         rightCooldowns.put(plrID, System.currentTimeMillis()+(rightCooldown*1000-(level*cm.getGemCooldownBoost())));
     }
@@ -160,7 +163,9 @@ public class ironGem {
         armorAttribute.addModifier(armorModifier);
         toughnessAttribute.addModifier(toughnessModifier);
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-            if (plr.isOnline()) {
+            OfflinePlayer op = Bukkit.getOfflinePlayer(plrID);
+            System.out.println("is online: "+op.isOnline());
+            if (op.isOnline()) {
                 armorAttribute.removeModifier(armorModifier);
                 toughnessAttribute.removeModifier(toughnessModifier);
             } else {
