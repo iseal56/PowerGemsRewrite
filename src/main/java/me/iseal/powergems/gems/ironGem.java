@@ -89,6 +89,7 @@ public class ironGem {
                 knockbackInstance.removeModifier(knockbackAttribute);
             } else {
                 tdm.ironRightLeft.add(op.getUniqueId());
+                System.out.println("irongemright contains:"+tdm.ironRightLeft);
             }
         }, 150*level);
         //cooldown add
@@ -170,6 +171,7 @@ public class ironGem {
                 toughnessAttribute.removeModifier(toughnessModifier);
             } else {
                 tdm.ironShiftLeft.add(op.getUniqueId());
+                System.out.println("irongemshift contains:"+tdm.ironShiftLeft);
             }
         }, 200);
         //cooldown add
