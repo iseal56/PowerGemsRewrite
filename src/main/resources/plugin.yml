@@ -15,7 +15,13 @@ commands:
   checkupdates:
     description: Checks for updates
     permission: powergems.check_update
+  reloadconfig:
+    description: Reloads the config files.
+    permission: powergems.reloadConfig
 permissions:
+  powergems.reloadConfig:
+    default: op
+    description: Permission for the /reloadConfig command.
   powergems.givegem:
     default: op
     description: Permission for the /givegem command.

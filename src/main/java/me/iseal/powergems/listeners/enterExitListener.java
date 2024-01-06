@@ -23,12 +23,11 @@ public class enterExitListener implements Listener {
     private final ironGem ironGem = new ironGem();
     private final GemManager gm = sm.gemManager;
     private TempDataManager tdm = sm.tempDataManager;
-    private final long delay = 30*1000;
+    private final long delay = Main.config.getInt("delayToUseGemsOnJoin")*1000;
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player plr = e.getPlayer();
-
         checkIfRemovePowers(plr);
         addDelay(plr);
         giveGemOnFirstLogin(plr);

@@ -14,12 +14,13 @@ public class ConfigManager {
         config.setDefault("giveGemOnFirstLogin", true);
         config.setDefault("canUpgradeGems", true);
         config.setDefault("canCraftGems", true);
-        config.setDefault("cooldownBoostPerLevelInSeconds", 2L);
         config.setDefault("keepGemsOnDeath", true);
         config.setDefault("gemsHaveDescriptions", false);
         config.setDefault("explosionDamageAllowed", true);
         config.setDefault("preventGemPowerTampering", true);
         config.setDefault("doGemDecay", true);
+        config.setDefault("cooldownBoostPerLevelInSeconds", 2L);
+        config.setDefault("delayToUseGemsOnJoin", 30);
     }
 
     public long getGemCooldownBoost(){
