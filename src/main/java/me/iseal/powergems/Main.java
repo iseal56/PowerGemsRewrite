@@ -4,6 +4,7 @@ import de.leonhard.storage.Yaml;
 import me.iseal.powergems.commands.checkUpdateCommand;
 import me.iseal.powergems.commands.giveAllGemCommand;
 import me.iseal.powergems.commands.giveGemCommand;
+import me.iseal.powergems.commands.reloadConfigCommand;
 import me.iseal.powergems.listeners.*;
 import me.iseal.powergems.listeners.passivePowerListeners.damageListener;
 import me.iseal.powergems.listeners.powerListeners.*;
@@ -71,6 +72,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getServer().getPluginCommand("givegem").setExecutor(new giveGemCommand());
         Bukkit.getServer().getPluginCommand("giveallgem").setExecutor(new giveAllGemCommand());
         Bukkit.getServer().getPluginCommand("checkupdates").setExecutor(new checkUpdateCommand());
+        Bukkit.getServer().getPluginCommand("reloadconfig").setExecutor(new reloadConfigCommand());
         l.info("Registering bstats metrics");
         Metrics metrics = new Metrics(this, 108943);
         metrics.addCustomChart(new SimpleBarChart("Gems enabled", new Callable<Map<String, Integer>>() {
