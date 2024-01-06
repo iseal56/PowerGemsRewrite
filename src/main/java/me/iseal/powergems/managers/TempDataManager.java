@@ -1,10 +1,12 @@
 package me.iseal.powergems.managers;
 
 import me.iseal.powergems.gems.powerClasses.tasks.fireballPowerDecay;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class TempDataManager {
 
@@ -15,8 +17,8 @@ public class TempDataManager {
     public HashMap<Player, Long> cantUseGems = new HashMap<>(1);
 
     //Iron shift players that left
-    public LinkedList<Player> ironShiftLeft = new LinkedList<>();
+    public LinkedList<UUID> ironShiftLeft = new LinkedList<>();
 
     //Iron right players that left
-    public LinkedList<Player> ironRightLeft = new LinkedList<>();
+    public LinkedList<UUID> ironRightLeft = new LinkedList<>();
 }

@@ -15,7 +15,7 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class multipleGemCraftDisabler implements Listener {
+public class inventoryCloseListener implements Listener {
 
     private final ItemStack randomGem = Main.getSingletonManager().gemManager.getRandomGemItem();
     private final GemManager gm = Main.getSingletonManager().gemManager;
@@ -73,7 +73,11 @@ public class multipleGemCraftDisabler implements Listener {
                 plrInv.remove(i);
             }
         }
-        if (gems.size() < 2){
+        if (gems.isEmpty()){
+            return;
+        }
+        if (gems.size() == 1){
+            plrInv.addItem(gems.get(0));
             return;
         }
         ItemStack randomGem = gems.get(rand.nextInt(gems.size()));

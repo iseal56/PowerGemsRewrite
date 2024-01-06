@@ -88,7 +88,7 @@ public class ironGem {
                 plr.setAbsorptionAmount(0.0);
                 knockbackInstance.removeModifier(knockbackAttribute);
             } else {
-                tdm.ironRightLeft.add(plr);
+                tdm.ironRightLeft.add(op.getUniqueId());
             }
         }, 150*level);
         //cooldown add
@@ -169,7 +169,7 @@ public class ironGem {
                 armorAttribute.removeModifier(armorModifier);
                 toughnessAttribute.removeModifier(toughnessModifier);
             } else {
-                tdm.ironShiftLeft.add(plr);
+                tdm.ironShiftLeft.add(op.getUniqueId());
             }
         }, 200);
         //cooldown add

@@ -49,6 +49,9 @@ public class GemManager {
     }
 
     public ItemMeta createLore(ItemMeta meta, int gemNumber){
+        if (!Main.config.getBoolean("gemsHaveDescriptions")){
+            return meta;
+        }
         ArrayList<String> lore = new ArrayList<>();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         if (!pdc.has(Main.getGemLevelKey(), PersistentDataType.INTEGER)) {

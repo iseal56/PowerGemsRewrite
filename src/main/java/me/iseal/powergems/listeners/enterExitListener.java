@@ -7,6 +7,8 @@ import me.iseal.powergems.managers.GemManager;
 import me.iseal.powergems.managers.SingletonManager;
 import me.iseal.powergems.managers.TempDataManager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +24,7 @@ public class enterExitListener implements Listener {
     private final SingletonManager sm = Main.getSingletonManager();
     private final ironGem ironGem = new ironGem();
     private final GemManager gm = sm.gemManager;
-    private TempDataManager tdm = sm.tempDataManager;
+    private final TempDataManager tdm = sm.tempDataManager;
     private final long delay = Main.config.getInt("delayToUseGemsOnJoin")*1000;
 
     @EventHandler
@@ -59,13 +61,13 @@ public class enterExitListener implements Listener {
     }
 
     private void checkIfRemovePowers(Player plr){
-        if (tdm.ironShiftLeft.contains(plr)){
+        if (tdm.ironShiftLeft.contains(plr.getUniqueId())){
             ironGem.removeShiftModifiers(plr);
-            tdm.ironShiftLeft.remove(plr);
+            tdm.ironShiftLeft.remove(plr.getUniqueId());
         }
-        if (tdm.ironRightLeft.contains(plr)){
+        if (tdm.ironRightLeft.contains(plr.getUniqueId())){
             ironGem.removeRightModifiers(plr);
-            tdm.ironRightLeft.remove(plr);
+            tdm.ironRightLeft.remove(plr.getUniqueId());
         }
     }
 

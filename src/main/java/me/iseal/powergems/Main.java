@@ -63,7 +63,7 @@ public final class Main extends JavaPlugin {
         if (!config.getBoolean("explosionDamageAllowed")) pluginManager.registerEvents(new entityExplodeListener(), this);
         if (config.getBoolean("preventGemPowerTampering")) pluginManager.registerEvents(new noGemHittingListener(), this);
         pluginManager.registerEvents(new ironProjectileLandListener(), this);
-        pluginManager.registerEvents(new multipleGemCraftDisabler(), this);
+        pluginManager.registerEvents(new inventoryCloseListener(), this);
         pluginManager.registerEvents(new damageListener(), this);
         pluginManager.registerEvents(sm.strenghtMoveListen, this);
         pluginManager.registerEvents(sm.sandMoveListen, this);
