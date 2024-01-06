@@ -19,6 +19,8 @@ public class reloadConfigCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.GREEN+"Reloading config...");
         Main.config.forceReload();
         Main.gemActive.forceReload();
+        Main.cd.forceReload();
+        sender.sendMessage(ChatColor.GREEN+"Config reloaded!");
         return false;
     }
 }

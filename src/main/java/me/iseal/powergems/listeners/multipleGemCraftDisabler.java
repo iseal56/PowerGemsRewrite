@@ -8,23 +8,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class multipleGemCraftDisabler implements Listener {
 
     private final ItemStack randomGem = Main.getSingletonManager().gemManager.getRandomGemItem();
     private final GemManager gm = Main.getSingletonManager().gemManager;
+    private final Random rand = new Random();
 
     @EventHandler
     public void onClose(InventoryCloseEvent e){
         if (!(e.getInventory().getHolder() instanceof Player)) {
             return;
         }
-         if (!(e.getView().getBottomInventory() instanceof PlayerInventory)) {
+        if (!(e.getView().getBottomInventory() instanceof PlayerInventory)) {
             return;
         }
         Player plr = (Player) e.getInventory().getHolder();
+        checkIfMultipleGems(plr);
         if (!e.getView().getBottomInventory().containsAtLeast(randomGem, 1)){
             return;
         }
@@ -53,4 +59,25 @@ public class multipleGemCraftDisabler implements Listener {
             }
         }
     }
+
+    private void checkIfMultipleGems(Player plr){
+        if (!Main.config.getBoolean("allowOnlyOneGem")){
+            return;
+        }
+        ArrayList<ItemStack> gems = new ArrayList<>(3);
+        final Inventory plrInv = plr.getInventory();
+        for (ItemStack i : plrInv.getContents()){
+            if (gm.isGem(i)){
+                i.setAmount(1);
+                gems.add(i);
+                plrInv.remove(i);
+            }
+        }
+        if (gems.size() < 2){
+            return;
+        }
+        ItemStack randomGem = gems.get(rand.nextInt(gems.size()));
+        plrInv.addItem(randomGem);
+    }
+
 }

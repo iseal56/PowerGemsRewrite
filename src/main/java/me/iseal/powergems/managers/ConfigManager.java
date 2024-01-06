@@ -19,6 +19,7 @@ public class ConfigManager {
         config.setDefault("explosionDamageAllowed", true);
         config.setDefault("preventGemPowerTampering", true);
         config.setDefault("doGemDecay", true);
+        config.setDefault("doDecayOnLevel1", false);
         config.setDefault("cooldownBoostPerLevelInSeconds", 2L);
         config.setDefault("delayToUseGemsOnJoin", 30);
     }

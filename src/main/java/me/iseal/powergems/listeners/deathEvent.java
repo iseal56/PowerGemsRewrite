@@ -46,8 +46,11 @@ public class deathEvent implements Listener {
             if (Main.config.getBoolean("doGemDecay")) {
                 for (ItemStack item : toRestore) {
                     PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+                    int power = pdc.get(Main.getGemPowerKey(), PersistentDataType.INTEGER);
                     if (pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) > 1) {
-                        e.getPlayer().getInventory().addItem(Main.getSingletonManager().gemManager.createGem(pdc.get(Main.getGemPowerKey(), PersistentDataType.INTEGER), pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) - 1));
+                        e.getPlayer().getInventory().addItem(Main.getSingletonManager().gemManager.createGem(power, pdc.get(Main.getGemLevelKey(), PersistentDataType.INTEGER) - 1));
+                    } else if (!Main.config.getBoolean("doDecayOnLevel1")){
+                        e.getPlayer().getInventory().addItem(Main.getSingletonManager().gemManager.createGem(power, 1));
                     }
                 }
             } else {
