@@ -84,18 +84,16 @@ public class ironGem {
         try {
             knockbackInstance.addModifier(knockbackAttribute);
         } catch (IllegalArgumentException ex) {
-            l.warning(plr.getDisplayName()+" used Iron Gem Shift while already having the modifiers, please report this to the developer");
+            l.warning("[PowerGems] "+plr.getDisplayName()+" used Iron Gem Shift while already having the modifiers, please report this to the developer");
         }
         plr.setVelocity(new Vector(0, 0, 0));
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
             OfflinePlayer op = Bukkit.getOfflinePlayer(plrID);
-            System.out.println("is online: "+op.isOnline());
             if (op.isOnline()) {;
                 plr.setAbsorptionAmount(0.0);
                 knockbackInstance.removeModifier(knockbackAttribute);
             } else {
                 tdm.ironRightLeft.add(op.getUniqueId());
-                System.out.println("irongemright contains:"+tdm.ironRightLeft);
             }
         }, 150*level);
         //cooldown add
@@ -171,17 +169,15 @@ public class ironGem {
             armorAttribute.addModifier(armorModifier);
             toughnessAttribute.addModifier(toughnessModifier);
         } catch (IllegalArgumentException ex) {
-            l.warning(plr.getDisplayName()+" used Iron Gem Shift while already having the modifiers, please report this to the developer");
+            l.warning("[PowerGems] "+plr.getDisplayName()+" used Iron Gem Shift while already having the modifiers, please report this to the developer");
         }
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
             OfflinePlayer op = Bukkit.getOfflinePlayer(plrID);
-            System.out.println("is online: "+op.isOnline());
             if (op.isOnline()) {
                 armorAttribute.removeModifier(armorModifier);
                 toughnessAttribute.removeModifier(toughnessModifier);
             } else {
                 tdm.ironShiftLeft.add(op.getUniqueId());
-                System.out.println("irongemshift contains:"+tdm.ironShiftLeft);
             }
         }, 200);
         //cooldown add
@@ -189,14 +185,12 @@ public class ironGem {
     }
 
     public void removeShiftModifiers(Player plr){
-        System.out.println("FUUUUUU "+plr.getDisplayName());
         AttributeInstance armorAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR);
         AttributeInstance toughnessAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS);
         armorAttribute.removeModifier(armorModifier);
         toughnessAttribute.removeModifier(toughnessModifier);
     }
     public void removeRightModifiers(Player plr){
-        System.out.println("DUUUUUU "+plr.getDisplayName());
         AttributeInstance knockbackInstance = plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
         knockbackInstance.removeModifier(knockbackAttribute);
     }

@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class enterExitListener implements Listener {
 
-    Json playerJoined = new Json("playerData", Main.getPlugin().getDataFolder().getPath());
+    private final Json playerJoined = new Json("playerData", Main.getPlugin().getDataFolder().getPath());
     private final SingletonManager sm = Main.getSingletonManager();
     private final ironGem ironGem = new ironGem();
     private final GemManager gm = sm.gemManager;
@@ -61,8 +61,6 @@ public class enterExitListener implements Listener {
     }
 
     private void checkIfRemovePowers(Player plr){
-        System.out.println("irongemshift contains:"+tdm.ironShiftLeft);
-        System.out.println("irongemright contains:"+tdm.ironRightLeft);
         if (tdm.ironShiftLeft.contains(plr.getUniqueId())){
             ironGem.removeShiftModifiers(plr);
             tdm.ironShiftLeft.remove(plr.getUniqueId());
