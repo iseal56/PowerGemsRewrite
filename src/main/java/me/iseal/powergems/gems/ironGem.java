@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static me.iseal.powergems.Main.gemActive;
 
@@ -37,6 +38,7 @@ public class ironGem {
     private final TempDataManager tdm = Main.getSingletonManager().tempDataManager;
     private final ConfigManager cm = Main.getSingletonManager().configManager;
     private int level;
+    private final Logger l = Bukkit.getLogger();
     private final AttributeModifier armorModifier = new AttributeModifier(Main.getAttributeUUID(), "Iron Fortification", 8, AttributeModifier.Operation.ADD_NUMBER);
     private final AttributeModifier toughnessModifier = new AttributeModifier(Main.getAttributeUUID(), "Iron Fortification", 4, AttributeModifier.Operation.ADD_NUMBER);
     private final AttributeModifier knockbackAttribute = new AttributeModifier(Main.getAttributeUUID(), "Iron Fortification - Knockback", 5, AttributeModifier.Operation.ADD_NUMBER);
@@ -79,7 +81,11 @@ public class ironGem {
         plr.getWorld().spawnParticle(Particle.CRIT, plr.getLocation().add(0, 1, 0), 20);
         plr.setAbsorptionAmount(2*level);
         AttributeInstance knockbackInstance = plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
-        knockbackInstance.addModifier(knockbackAttribute);
+        try {
+            knockbackInstance.addModifier(knockbackAttribute);
+        } catch (IllegalArgumentException ex) {
+            l.warning(plr.getDisplayName()+" used Iron Gem Shift while already having the modifiers, please report this to the developer");
+        }
         plr.setVelocity(new Vector(0, 0, 0));
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
             OfflinePlayer op = Bukkit.getOfflinePlayer(plrID);
@@ -161,8 +167,12 @@ public class ironGem {
         //power
         AttributeInstance armorAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR);
         AttributeInstance toughnessAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS);
-        armorAttribute.addModifier(armorModifier);
-        toughnessAttribute.addModifier(toughnessModifier);
+        try {
+            armorAttribute.addModifier(armorModifier);
+            toughnessAttribute.addModifier(toughnessModifier);
+        } catch (IllegalArgumentException ex) {
+            l.warning(plr.getDisplayName()+" used Iron Gem Shift while already having the modifiers, please report this to the developer");
+        }
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
             OfflinePlayer op = Bukkit.getOfflinePlayer(plrID);
             System.out.println("is online: "+op.isOnline());
