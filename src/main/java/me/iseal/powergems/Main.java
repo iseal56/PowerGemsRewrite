@@ -18,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -34,6 +35,7 @@ public final class Main extends JavaPlugin {
     private static NamespacedKey isGemProjectileKey = null;
     private static NamespacedKey isRandomGemKey = null;
     private static NamespacedKey isGemExplosionKey = null;
+    private static final UUID attributeUUID = UUID.fromString("d21d674e-e7ec-4cd0-8258-4667843f26fd");
     private final Logger l = Bukkit.getLogger();
 
 
@@ -122,6 +124,9 @@ public final class Main extends JavaPlugin {
     }
     public static NamespacedKey getIsGemExplosionKey() {
         return isGemExplosionKey;
+    }
+    public static UUID getAttributeUUID() {
+        return attributeUUID;
     }
 
 }

@@ -72,5 +72,4 @@ public class enterExitListener implements Listener {
             tdm.ironRightLeft.remove(plr.getUniqueId());
         }
     }
-
 }

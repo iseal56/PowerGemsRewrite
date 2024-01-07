@@ -37,9 +37,9 @@ public class ironGem {
     private final TempDataManager tdm = Main.getSingletonManager().tempDataManager;
     private final ConfigManager cm = Main.getSingletonManager().configManager;
     private int level;
-    private final AttributeModifier armorModifier = new AttributeModifier(UUID.randomUUID(), "Iron Fortification", 8, AttributeModifier.Operation.ADD_NUMBER);
-    private final AttributeModifier toughnessModifier = new AttributeModifier(UUID.randomUUID(), "Iron Fortification", 4, AttributeModifier.Operation.ADD_NUMBER);
-    private final AttributeModifier knockbackAttribute = new AttributeModifier(UUID.randomUUID(), "Iron Fortification - Knockback", 5, AttributeModifier.Operation.ADD_NUMBER);
+    private final AttributeModifier armorModifier = new AttributeModifier(Main.getAttributeUUID(), "Iron Fortification", 8, AttributeModifier.Operation.ADD_NUMBER);
+    private final AttributeModifier toughnessModifier = new AttributeModifier(Main.getAttributeUUID(), "Iron Fortification", 4, AttributeModifier.Operation.ADD_NUMBER);
+    private final AttributeModifier knockbackAttribute = new AttributeModifier(Main.getAttributeUUID(), "Iron Fortification - Knockback", 5, AttributeModifier.Operation.ADD_NUMBER);
 
     public boolean handlePower(Player p, Action a, int lvl){
         if (!gemActive.getOrSetDefault("iron", true)) {
@@ -179,12 +179,14 @@ public class ironGem {
     }
 
     public void removeShiftModifiers(Player plr){
+        System.out.println("FUUUUUU "+plr.getDisplayName());
         AttributeInstance armorAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR);
         AttributeInstance toughnessAttribute = plr.getAttribute(Attribute.GENERIC_ARMOR_TOUGHNESS);
         armorAttribute.removeModifier(armorModifier);
         toughnessAttribute.removeModifier(toughnessModifier);
     }
     public void removeRightModifiers(Player plr){
+        System.out.println("DUUUUUU "+plr.getDisplayName());
         AttributeInstance knockbackInstance = plr.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
         knockbackInstance.removeModifier(knockbackAttribute);
     }
