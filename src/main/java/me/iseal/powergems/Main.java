@@ -10,7 +10,9 @@ import me.iseal.powergems.listeners.passivePowerListeners.damageListener;
 import me.iseal.powergems.listeners.powerListeners.*;
 import me.iseal.powergems.managers.*;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.AdvancedPie;
 import org.bstats.charts.SimpleBarChart;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.PluginManager;
@@ -76,19 +78,14 @@ public final class Main extends JavaPlugin {
         Bukkit.getServer().getPluginCommand("checkupdates").setExecutor(new checkUpdateCommand());
         Bukkit.getServer().getPluginCommand("reloadconfig").setExecutor(new reloadConfigCommand());
         l.info("Registering bstats metrics");
-        Metrics metrics = new Metrics(this, 108943);
-        metrics.addCustomChart(new SimpleBarChart("Gems enabled", new Callable<Map<String, Integer>>() {
+        Metrics metrics = new Metrics(plugin, 20723);
+        metrics.addCustomChart(new AdvancedPie("gems_enabled", new Callable<Map<String, Integer>>() {
             @Override
-            public Map<String, Integer> call() throws Exception {
+            public Map<String, Integer> call() {
                 Map<String, Integer> map = new HashMap<>();
-                map.put("Strength", gemActive.getBoolean("strength") ? 1 : 0);
-                map.put("Healing", gemActive.getBoolean("healing") ? 1 : 0);
-                map.put("Air", gemActive.getBoolean("air") ? 1 : 0);
-                map.put("Fire", gemActive.getBoolean("fire") ? 1 : 0);
-                map.put("Iron", gemActive.getBoolean("iron") ? 1 : 0);
-                map.put("Lightning", gemActive.getBoolean("lightning") ? 1 : 0);
-                map.put("Sand", gemActive.getBoolean("sand") ? 1 : 0);
-                map.put("Ice", gemActive.getBoolean("ice") ? 1 : 0);
+                for (String gem : gemActive.singleLayerKeySet()){
+                    map.put(gem, gemActive.getBoolean(gem) ? 1 : 0);
+                }
                 return map;
             }
         }));
