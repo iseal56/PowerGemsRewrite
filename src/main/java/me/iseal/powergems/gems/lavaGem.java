@@ -16,19 +16,25 @@ import org.bukkit.event.block.Action;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static me.iseal.powergems.Main.config;
 import static me.iseal.powergems.Main.gemActive;
 
 public class lavaGem {
     private Map<UUID, Long> rightCooldowns = new HashMap<>();
     private Map<UUID, Long> leftCooldowns = new HashMap<>();
     private Map<UUID, Long> shiftCooldowns = new HashMap<>();
-
+    private ArrayList<Material> blockedBlocks;
+    {
+        try {
+            blockedBlocks = (ArrayList<Material>) config.getList("blockedLavaBlocks");
+        } catch (ClassCastException e){
+            Bukkit.getLogger().warning("Config file shaped incorrectly, resorting to default state");
+            blockedBlocks = new ArrayList<>();
+        }
+    }
     private final long rightCooldown = CooldownManager.LAVA_RIGHT.getCooldown();
     private final long leftCooldown = CooldownManager.LAVA_LEFT.getCooldown();
     private final long shiftCooldown = CooldownManager.LAVA_SHIFT.getCooldown();
@@ -80,6 +86,9 @@ public class lavaGem {
         while (times != 0) {
             ArrayList<Block> blocks = u.getSquareOutlineCoordinates(plr, radius);
             for (Block block : blocks) {
+                if (blockedBlocks.contains(block.getType())){
+                    continue;
+                }
                 toChangeBack.put(block, block.getType());
                 block.setType(Material.LAVA);
             }

@@ -2,6 +2,7 @@ package me.iseal.powergems.managers;
 
 import de.leonhard.storage.Config;
 import me.iseal.powergems.Main;
+import org.bukkit.Material;
 
 public class ConfigManager {
     Config config = null;
@@ -22,6 +23,7 @@ public class ConfigManager {
         config.setDefault("doDecayOnLevel1", false);
         config.setDefault("cooldownBoostPerLevelInSeconds", 2L);
         config.setDefault("delayToUseGemsOnJoin", 30);
+        config.setDefault("blockedLavaBlocks", new Material[]{Material.BEDROCK, Material.WATER, Material.NETHERITE_BLOCK});
     }
 
     public long getGemCooldownBoost(){

@@ -79,16 +79,6 @@ public final class Main extends JavaPlugin {
         Bukkit.getServer().getPluginCommand("reloadconfig").setExecutor(new reloadConfigCommand());
         l.info("Registering bstats metrics");
         Metrics metrics = new Metrics(plugin, 20723);
-        metrics.addCustomChart(new AdvancedPie("gems_enabled", new Callable<Map<String, Integer>>() {
-            @Override
-            public Map<String, Integer> call() {
-                Map<String, Integer> map = new HashMap<>();
-                for (String gem : gemActive.singleLayerKeySet()){
-                    map.put(gem, gemActive.getBoolean(gem) ? 1 : 0);
-                }
-                return map;
-            }
-        }));
         //TODO: addon api
     }
 
