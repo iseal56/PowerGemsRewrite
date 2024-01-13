@@ -74,11 +74,7 @@ public class inventoryCloseListener implements Listener {
             if (gm.isGem(i)){
                 i.setAmount(1);
                 gems.put(i, index);
-                if (index == 40){
-                    plrInv.setItemInOffHand(null);
-                } else {
-                    plrInv.remove(i);
-                }
+                plrInv.setItem(index, null);
             }
             index++;
         }
