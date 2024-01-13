@@ -35,19 +35,9 @@ public class inventoryCloseListener implements Listener {
             return;
         }
         PlayerInventory pi = (PlayerInventory) e.getView().getBottomInventory();
-        PlayerInventory pi2 = (PlayerInventory) e.getView().getTopInventory();
         int nOfGems = 0;
         int intAt = -1;
         for (ItemStack item : pi.getContents()){
-            intAt++;
-            if (item == null || !item.isSimilar(randomGem)){
-                continue;
-            }
-            nOfGems+= item.getAmount();
-            pi.setItem(intAt, null);
-        }
-        intAt = -1;
-        for (ItemStack item : pi2.getContents()){
             intAt++;
             if (item == null || !item.isSimilar(randomGem)){
                 continue;
@@ -75,7 +65,13 @@ public class inventoryCloseListener implements Listener {
             return;
         }
         ArrayList<ItemStack> gems = new ArrayList<>(3);
-        final Inventory plrInv = plr.getInventory();
+        final PlayerInventory plrInv = plr.getInventory();
+        final ItemStack offHand = plrInv.getItemInOffHand();
+        if (gm.isGem(offHand)){
+            offHand.setAmount(1);
+            gems.add(offHand);
+            plrInv.remove(offHand);
+        }
         for (ItemStack i : plrInv.getContents()){
             if (gm.isGem(i)){
                 i.setAmount(1);
