@@ -35,9 +35,19 @@ public class inventoryCloseListener implements Listener {
             return;
         }
         PlayerInventory pi = (PlayerInventory) e.getView().getBottomInventory();
+        PlayerInventory pi2 = (PlayerInventory) e.getView().getTopInventory();
         int nOfGems = 0;
         int intAt = -1;
         for (ItemStack item : pi.getContents()){
+            intAt++;
+            if (item == null || !item.isSimilar(randomGem)){
+                continue;
+            }
+            nOfGems+= item.getAmount();
+            pi.setItem(intAt, null);
+        }
+        intAt = -1;
+        for (ItemStack item : pi2.getContents()){
             intAt++;
             if (item == null || !item.isSimilar(randomGem)){
                 continue;
