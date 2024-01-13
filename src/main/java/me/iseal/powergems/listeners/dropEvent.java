@@ -39,7 +39,7 @@ public class dropEvent implements Listener {
             if (!current.getType().equals(Material.AIR)) {
                 return;
             }
-            if (!gm.isGem(cursor)) {
+            if (gm.isGem(cursor)) {
                 e.setCancelled(true);
             }
         } else {
