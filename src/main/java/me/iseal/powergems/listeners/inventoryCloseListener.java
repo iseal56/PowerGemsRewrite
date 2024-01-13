@@ -3,6 +3,7 @@ package me.iseal.powergems.listeners;
 import me.iseal.powergems.Main;
 import me.iseal.powergems.managers.GemManager;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class inventoryCloseListener implements Listener {
@@ -65,30 +67,39 @@ public class inventoryCloseListener implements Listener {
         if (!Main.config.getBoolean("allowOnlyOneGem")){
             return;
         }
-        ArrayList<ItemStack> gems = new ArrayList<>(3);
+        HashMap<ItemStack, Integer> gems = new HashMap<>(3);
         final PlayerInventory plrInv = plr.getInventory();
-        final ItemStack offHand = plrInv.getItemInOffHand();
-        if (gm.isGem(offHand)){
-            offHand.setAmount(1);
-            gems.add(offHand);
-            plrInv.setItemInOffHand(null);
-        }
+        int index = 0;
         for (ItemStack i : plrInv.getContents()){
             if (gm.isGem(i)){
                 i.setAmount(1);
-                gems.add(i);
-                plrInv.remove(i);
+                gems.put(i, index);
+                if (index == 40){
+                    plrInv.setItemInOffHand(null);
+                } else {
+                    plrInv.remove(i);
+                }
             }
+            index++;
         }
         if (gems.isEmpty()){
             return;
         }
         if (gems.size() == 1){
-            plrInv.addItem(gems.get(0));
+            ItemStack firstGem = gems.keySet().stream().findFirst().get();
+            if (gems.get(firstGem) == -1){
+                plrInv.setItemInOffHand(firstGem);
+                return;
+            }
+            plrInv.setItem(gems.get(firstGem), firstGem);
             return;
         }
-        ItemStack randomGem = gems.get(rand.nextInt(gems.size()));
-        plrInv.addItem(randomGem);
+        ItemStack randomGem = gems.keySet().stream().skip(rand.nextInt(gems.size())).findFirst().get();
+        if (gems.get(randomGem) == -1){
+            plrInv.setItemInOffHand(randomGem);
+            return;
+        }
+        plrInv.setItem(gems.get(randomGem), randomGem);
     }
 
 }
